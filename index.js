@@ -24,7 +24,7 @@ client.on("messageCreate", (event)=>{
 
 
 
-    client.login("OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA.uPgUyAbJild0DtHPtSnaRltsTng")
+    client.login("OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA.n0PcDZ6a1h4c3zkhgIwpsBPzTH8")
 
 
 const welcomeChannelId ="966699062051090452"
