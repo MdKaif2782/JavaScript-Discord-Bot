@@ -56,7 +56,9 @@ client.on("guildMemberAdd", async (member) => {
     })
 })
 
-client.login("OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA.E3NnBbn2Q2Es125A4psmnYrMpRY")
+const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA"
+const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW"
+client.login(token1+token2+"8")
 
 
 
