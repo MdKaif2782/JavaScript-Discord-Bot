@@ -65,13 +65,13 @@ client.on("messageCreate", (message)=>{
 
 const welcomeChannelId ="966699062051090452"
 
-client.on("guildMemberAdd", async (member) => {
-    const img = await generateImage(member)
-    client.guilds.cache.get(member.guild.id).channels.cache.
-    get(welcomeChannelId).send({content: `<@${member.id}> Welcome to the server!`,
-        files: [img]
-    })
-})
+// client.on("guildMemberAdd", async (member) => {
+//     const img = await generateImage(member)
+//     client.guilds.cache.get(member.guild.id).channels.cache.
+//     get(welcomeChannelId).send({content: `<@${member.id}> Welcome to the server!`,
+//         files: [img]
+//     })
+// })
 
 const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA"
 const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW"
