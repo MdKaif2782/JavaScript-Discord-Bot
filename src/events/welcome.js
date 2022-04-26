@@ -1,4 +1,5 @@
 const discord = require('discord.js');
+const { welcomeImage } = require('discord-welcome-card');
 module.exports = {
 	name: 'guildMemberAdd',
 	execute(client) {
@@ -8,13 +9,11 @@ module.exports = {
   
     let membercount = guild.members
     if (!channel) return;
-    
-    let embed = new discord.MessageEmbed() 
-      .setColor("GREEN") 
-      .setTitle("New Server Member!")
-      .setDescription(`Welcome, ${client.user.tag} to **${guild.name}!**`)
-      .setThumbnail(client.user.displayAvatarURL())
-      //.setFooter(`You are the ${membercount}th member to join`);
-    channel.send(embed);
+    const member = client;
+    (async ()=>{
+      const image = await welcomeImage(member, {theme:'circuit'})
+    channel.send({files:[image]})
+  })()
+  
 	},
 };
