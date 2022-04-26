@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 const { TextChannel, Guild, GuildChannel} = require('discord.js')
-const generateImage = require('./generateImage')
+
 
  const client = new discord.Client({
     intents: [
