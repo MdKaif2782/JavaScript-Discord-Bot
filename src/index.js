@@ -14,32 +14,37 @@ const fs = require('fs')
 const path = require('path')
 client.commands= new discord.Collection();
 const commands = fs.readdirSync(path.resolve('src/commands')).filter(file => file.endsWith('.js'));
-
+//reading commands
 for (file of commands){
     const commandName= file.split('.')[0]
     const command = require(`./commands/${commandName}`);
     client.commands.set(commandName,command)
 }
 
+//reading events
+const eventFiles = fs.readdirSync('src/events').filter(file => file.endsWith('.js'));
 
-client.on("ready",()=>{
-    console.log(`logged in as ${client.user.tag}`)
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
+const interactions = fs.readdirSync('src/events/interactions').filter(file => file.endsWith('.js'));
 
-    const guildId= "924564717949829161";
-    const guild = client.guilds.cache.get(guildId);
+for (const file of interactions) {
+	const event = require(`./events/interactions/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
 
-    let commands 
-    if (guild) {
-        commands = guild.commands;
-    }else{
-        commands = client.application.commands
-    }
-    commands.create({
-        name:'ping',
-        description: 'replies with pong'
-    })
 
-})
+
 
 client.on("interactionCreate", (inetraction)=>{
     if(inetraction.commandName==="ping"){
@@ -63,25 +68,7 @@ client.on("messageCreate", (message)=>{
 
 
 
-const welcomeChannelId ="966699062051090452"
-
-client.on('guildMemberAdd', member => {
-    if (!member.guild) return;
-    let guild = member.guild
-    let channel = guild.channels.cache.find(c => c.name === "welcome");
-  
-    let membercount = guild.members
-    if (!channel) return;
-    
-    let embed = new Discord.MessageEmbed() 
-      .setColor("GREEN") 
-      .setTitle("New Server Member!")
-      .setDescription(`Welcome, ${member.user.tag} to **${guild.name}!**`)
-      .setThumbnail(member.user.displayAvatarURL())
-      //.setFooter(`You are the ${membercount}th member to join`);
-    channel.send(embed);
-  });
-
+// const welcomeChannelId ="966699062051090452"
 // client.on("guildMemberAdd", async (member) => {
 //     const img = await generateImage(member)
 //     client.guilds.cache.get(member.guild.id).channels.cache.
