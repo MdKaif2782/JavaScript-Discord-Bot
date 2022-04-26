@@ -1,7 +1,7 @@
  
 const Canvas = require("canvas")
 const Discord = require("discord.js")
-const background = "https://wallpapercave.com/wp/wp2016171.jpg"
+const background = "https://wallpaperaccess.com/full/490129.jpg"
 
 const dim = {
     height: 675,

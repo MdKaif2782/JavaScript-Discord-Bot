@@ -11,8 +11,9 @@ const generateImage = require('./generateImage')
 })
 const prefix = '!'
 const fs = require('fs')
+const path = require('path')
 client.commands= new discord.Collection();
-const commands = fs.readdirSync('src/commands').filter(file => file.endsWith('.js'));
+const commands = fs.readdirSync(path.resolve('src/commands')).filter(file => file.endsWith('.js'));
 
 for (file of commands){
     const commandName= file.split('.')[0]
@@ -24,13 +25,29 @@ for (file of commands){
 client.on("ready",()=>{
     console.log(`logged in as ${client.user.tag}`)
 
+    const guildId= "924564717949829161";
+    const guild = client.guilds.cache.get(guildId);
+
+    let commands 
+    if (guild) {
+        commands = guild.commands;
+    }else{
+        commands = client.application.commands
+    }
+    commands.create({
+        name:'ping',
+        description: 'replies with pong'
+    })
+
 })
-//ping
-// client.on("messageCreate", (event)=>{
-//     if (event.content.toLowerCase()==="!ping"){
-//         event.reply("Pong!");
-//     }
-// })
+
+client.on("interactionCreate", (inetraction)=>{
+    if(inetraction.commandName==="ping"){
+        inetraction.reply({ content:"Pong!"});
+    }
+})
+
+
 
 client.on("messageCreate", (message)=>{
     if (message.content.startsWith(prefix)){
