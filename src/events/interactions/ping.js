@@ -1,5 +1,5 @@
 module.exports = {
-	name: 'ping',
+	name: 'ready',
 	once: true,
 	execute(client) {
         const guildId= "924564717949829161";
