@@ -1,6 +1,5 @@
 module.exports = {
-	name: 'welcome',
-	once: false,
+	name: 'guildMemberAdd',
 	execute(client) {
 		if (!client.guild) return;
     let guild = client.guild
