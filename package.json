@@ -1,9 +1,23 @@
 {
+  "name": "bot test",
+  "version": "1.0.0",
+  "description": "just testing lol",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "dependencies": {
     "canvas": "^2.9.1",
     "discord.js": "^13.6.0"
   },
   "devDependencies": {
     "eslint": "^8.14.0"
+  },
+  "engines": {
+    "node": "16.14.2"
   }
 }
