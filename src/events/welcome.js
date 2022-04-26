@@ -1,6 +1,6 @@
+const discord = require('discord.js');
 module.exports = {
-	name: 'welcome',
-	once: false,
+	name: 'guildMemberAdd',
 	execute(client) {
 		if (!client.guild) return;
     let guild = client.guild
@@ -9,7 +9,7 @@ module.exports = {
     let membercount = guild.members
     if (!channel) return;
     
-    let embed = new Discord.MessageEmbed() 
+    let embed = new discord.MessageEmbed() 
       .setColor("GREEN") 
       .setTitle("New Server Member!")
       .setDescription(`Welcome, ${client.user.tag} to **${guild.name}!**`)

@@ -46,6 +46,7 @@ for (const file of interactions) {
 
 
 
+
 client.on("interactionCreate", (inetraction)=>{
     if(inetraction.commandName==="ping"){
         inetraction.reply({ content:"Pong!"});
