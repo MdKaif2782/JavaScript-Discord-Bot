@@ -10,6 +10,9 @@ const fs = require('fs')
     ]
 })
 
+
+
+
 const prefix = '!'
 
 const path = require('path')
@@ -23,14 +26,42 @@ for (file of commands){
 }
 
 
-client.on("interactionCreate", (inetraction)=>{
-    if(inetraction.commandName==="ping"){
-        inetraction.reply({ content:"Pong!"});
-    }
-})
+//reading events
+const eventFiles = fs.readdirSync('src/events').filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
+
+const interactionCreateFiles = fs.readdirSync('src/events/interactions').filter(file => file.endsWith('.js'));
+
+for (const file of interactionCreateFiles) {
+	const event = require(`./events/interactions/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
+
+const interactionResponseFiles = fs.readdirSync('src/events/interactionResponse').filter(file => file.endsWith('.js'));
+
+for (const file of interactionResponseFiles) {
+	const event = require(`./events/interactionResponse/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
 
 
-
+//messageCreateCommands
 client.on("messageCreate", (message)=>{
     if (message.content.startsWith(prefix)){
         const args = message.content.slice(prefix.length).trim().split(/ +/g)

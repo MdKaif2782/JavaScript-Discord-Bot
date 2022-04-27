@@ -1,6 +1,5 @@
 module.exports = {
 	name: 'ready',
-	once: true,
 	execute(client) {
         const guildId= "924564717949829161";
         const guild = client.guilds.cache.get(guildId);
