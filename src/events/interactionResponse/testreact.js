@@ -4,8 +4,9 @@ module.exports = {
 
         if(client.commandName==="testreact"){
             const message = client;
+            message.reply("Interacting to Reaction add/remove command:")
             message.channel.send("Testing").then( mes =>{
-                mes.react("✅")
+                mes.react("✅").then(r => {console.log(r.emoji.name)})
                 mes.client.on('messageReactionAdd',(reaction,user)=>{
                     if (reaction.message.id===mes.id) {
                         console.log(reaction.emoji.name)
