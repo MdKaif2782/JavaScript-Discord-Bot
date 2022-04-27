@@ -1,12 +1,13 @@
 const discord = require('discord.js');
-const { TextChannel, Guild, GuildChannel} = require('discord.js')
 const fs = require('fs')
 
  const client = new discord.Client({
     intents: [
         "GUILDS",
         "GUILD_MESSAGES",
-        "GUILD_MEMBERS"
+        "GUILD_MEMBERS",
+		"DIRECT_MESSAGE_REACTIONS",
+		"GUILD_MESSAGE_REACTIONS"
     ]
 })
 
@@ -19,7 +20,7 @@ const path = require('path')
 client.commands= new discord.Collection();
 const commands = fs.readdirSync(path.resolve('src/commands')).filter(file => file.endsWith('.js'));
 //reading commands
-for (file of commands){
+for (const file of commands){
     const commandName= file.split('.')[0]
     const command = require(`./commands/${commandName}`);
     client.commands.set(commandName,command)
@@ -85,9 +86,16 @@ client.on("messageCreate", (message)=>{
 //     })
 // })
 
+
+
+
+
+
 const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA"
 const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW"
-client.login(token1+token2+"8")
+client.login(token1 + token2 + "8").then( r => {
+	console.log(r);
+})
 
 
 
