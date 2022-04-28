@@ -1,3 +1,4 @@
+const {MessageActionRow, MessageButton} = require("discord.js");
 module.exports.run = (client,message,args) => {
             const { performance } = require('perf_hooks');
             var startTime = performance.now()
@@ -13,6 +14,12 @@ module.exports.run = (client,message,args) => {
             .setImage(data.url)
             .setFooter(`Upvotes: ${data.ups}  NSFW: ${data.nsfw}  Spoiler: ${data.spoiler}\nResponse time: ${(performance.now()-startTime).toFixed(1)} ms`)
             console.log(data);
-            message.channel.send({embeds: [embed]});
+                const row = await new MessageActionRow().addComponents(
+                    await new MessageButton().setCustomId('next_meme')
+                        .setLabel("Next Meme")
+                        .setStyle("PRIMARY")
+                )
+                message.channel.send({embeds: [embed],components: [row]});
             }getMeme();
+
 }
