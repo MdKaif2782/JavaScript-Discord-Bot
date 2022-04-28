@@ -18,46 +18,31 @@ const prefix = '!'
 
 const path = require('path')
 client.commands= new discord.Collection();
-const commands = fs.readdirSync(path.resolve('src/commands')).filter(file => file.endsWith('.js'));
-//reading commands
-for (const file of commands){
-    const commandName= file.split('.')[0]
-    const command = require(`./commands/${commandName}`);
-    client.commands.set(commandName,command)
+const folderPath = fs.readdirSync('src/commands')
+
+for (const folder of folderPath){
+	const commands = fs.readdirSync(path.resolve(`src/commands/${folder}`)).filter(file=>file.endsWith('.js'))
+	for (const file of commands){
+		const commandName= file.split('.')[0]
+		const command = require(`./commands/${folder}/${commandName}`);
+		client.commands.set(commandName,command)
+	}
 }
+
 
 
 //reading events
-const eventFiles = fs.readdirSync('src/events').filter(file => file.endsWith('.js'));
+const eventFolders = fs.readdirSync('src/events')
+for (const folder of eventFolders){
+	const eventFiles = fs.readdirSync(`src/events/${folder}`).filter(file => file.endsWith('.js'));
 
-for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args));
-	}
-}
-
-const interactionCreateFiles = fs.readdirSync('src/events/interactions').filter(file => file.endsWith('.js'));
-
-for (const file of interactionCreateFiles) {
-	const event = require(`./events/interactions/${file}`);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args));
-	}
-}
-
-const interactionResponseFiles = fs.readdirSync('src/events/interactionResponse').filter(file => file.endsWith('.js'));
-
-for (const file of interactionResponseFiles) {
-	const event = require(`./events/interactionResponse/${file}`);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args));
+	for (const file of eventFiles) {
+		const event = require(`./events/${folder}/${file}`);
+		if (event.once) {
+			client.once(event.name, (...args) => event.execute(...args));
+		} else {
+			client.on(event.name, (...args) => event.execute(...args));
+		}
 	}
 }
 
@@ -72,24 +57,6 @@ client.on("messageCreate", (message)=>{
         command.run(client,message)
     }
 })
-
-
-
-
-
-// const welcomeChannelId ="966699062051090452"
-// client.on("guildMemberAdd", async (member) => {
-//     const img = await generateImage(member)
-//     client.guilds.cache.get(member.guild.id).channels.cache.
-//     get(welcomeChannelId).send({content: `<@${member.id}> Welcome to the server!`,
-//         files: [img]
-//     })
-// })
-
-
-
-
-
 
 const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA"
 const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW"

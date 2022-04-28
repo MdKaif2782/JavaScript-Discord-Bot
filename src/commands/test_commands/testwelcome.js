@@ -2,7 +2,7 @@ module.exports.run = (client,message)=>{
 
 
     (async ()=>{
-        const generateImage = await require('../generateImage')
+        const generateImage = await require('../../generateImage')
         let server = await message.guild
         if (!server){
             console.log('Server not found')

@@ -3,7 +3,7 @@ module.exports = {
 	name: 'guildMemberAdd',
 	execute(client) {
         (async ()=>{
-            const generateImage = await require('../generateImage')
+            const generateImage = await require('../../generateImage')
             let server = await client.guild
             if (!server){
                 console.log('Server not found')
