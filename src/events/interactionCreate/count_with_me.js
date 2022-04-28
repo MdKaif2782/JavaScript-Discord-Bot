@@ -1,7 +1,7 @@
 module.exports = {
     name: 'ready',
     execute(client) {
-        const guildId= "924564717949829161";
+        const guildId= "9245647179498291619";
         const guild = client.guilds.cache.get(guildId);
 
         let commands
@@ -11,8 +11,8 @@ module.exports = {
             commands = client.application.commands
         }
         commands.create({
-            name:'dynamic',
-            description: 'testing dynamic slash command'
+            name:'count_with_me',
+            description: 'Testing the counting system'
         })
     },
 };

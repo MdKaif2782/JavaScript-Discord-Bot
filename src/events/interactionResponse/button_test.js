@@ -18,11 +18,11 @@ module.exports = {
         if (interaction.isButton() ){
             if (interaction.customId==='22') {
                 interaction.message.edit({
-                    content: `${interaction.message.author.avatarURL({size:2048})}`
+                    content: `${interaction.message.author.avatarURL({size:1024})}`
                 })
             } else if (interaction.customId==='12'){
                 interaction.message.edit({
-                    content: `${interaction.user.displayAvatarURL({size: 2048})}`
+                    content: `${interaction.user.displayAvatarURL({size: 1024})}`
                 })
             }
         }
