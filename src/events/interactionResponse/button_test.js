@@ -17,11 +17,11 @@ module.exports = {
         }
         if (interaction.isButton() ){
             if (interaction.customId==='22') {
-                interaction.reply({
+                interaction.message.edit({
                     content: `${interaction.message.author.avatarURL()}`
                 })
             } else if (interaction.customId==='12'){
-                interaction.reply({
+                interaction.message.edit({
                     content: `${interaction.user.avatarURL()}`
                 })
             }
