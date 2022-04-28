@@ -1,7 +1,7 @@
 module.exports.run = (client,message)=>{
 
 
-    async function sendWelcomeMessage(){
+    (async ()=>{
         const generateImage = await require('../generateImage')
         let server = await message.guild
         if (!server){
@@ -16,7 +16,6 @@ module.exports.run = (client,message)=>{
         const image = await generateImage(message.member)
         await channel.send({content:`Welcome to the server! <@${message.author.id}>`,
         files: [image]});
-    }
-    sendWelcomeMessage().then(r => {
-        console.log(r)});
+    })()
+
 }
