@@ -1,8 +1,8 @@
 const {MessageActionRow, MessageButton} = require("discord.js");
-module.exports.run = (client,message,args) => {
+module.exports.run = (client,message) => {
             const { performance } = require('perf_hooks');
-            var startTime = performance.now()
-            const fetch = require('cross-fetch')
+    const startTime = performance.now();
+    const fetch = require('cross-fetch')
             const {MessageEmbed} = require('discord.js')
             async function getMeme(){
             const response = await fetch('https://meme-api.herokuapp.com/gimme')
