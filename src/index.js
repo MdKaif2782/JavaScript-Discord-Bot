@@ -58,6 +58,10 @@ client.on("messageCreate", (message)=>{
     }
 })
 
+// client.on("interactionCreate", (interaction)=>{
+//
+// })
+
 const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA"
 const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW"
 client.login(token1 + token2 + "8").then( r => {
