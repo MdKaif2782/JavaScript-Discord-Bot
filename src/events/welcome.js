@@ -6,8 +6,7 @@ module.exports = {
 		if (!client.guild) return;
     let guild = client.guild
     let channel = guild.channels.cache.find(c => c.name === "welcome");
-  
-    let membercount = guild.members
+
     if (!channel) return;
     const member = client;
     (async ()=>{

@@ -69,7 +69,7 @@ client.on("messageCreate", (message)=>{
         const commandName = args.shift()
         const command = client.commands.get(commandName)
         if (!command) return message.reply("This command doesn't exist")
-        command.run(client,message,args)
+        command.run(client,message)
     }
 })
 
