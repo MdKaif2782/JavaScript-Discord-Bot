@@ -1,5 +1,4 @@
-// const discord = require('discord.js');
-// const { welcomeImage } = require('discord-welcome-card');
+
 module.exports = {
 	name: 'guildMemberAdd',
 	execute(client) {
