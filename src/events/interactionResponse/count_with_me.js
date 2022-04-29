@@ -15,13 +15,13 @@ module.exports = {
                     .setStyle("SUCCESS")
             )
             interaction.reply('testing the counting methode:')
-            interaction.channel.send({content:`**COUNT    [ ${i} ]**`,components: [row]}).then(mes=>{
+            interaction.channel.send({content:`**COUNT:    [ ${i} ]**`,components: [row]}).then(mes=>{
                 mes.client.on("interactionCreate", interaction2=>{
                     if (interaction2.isButton()){
-                        if (interaction2.customId==="countplus"){
+                        if (interaction2.customId==="countplus" && interaction2.message.id===mes.id){
                             i=i+1;
-                            interaction2.message.edit({content:`**COUNT   [ ${i} ]**`})
-                        } else if (interaction2.customId==='countminus'){
+                            interaction2.message.edit({content:`**COUNT:   [ ${i} ]**`})
+                        } else if (interaction2.customId==='countminus'&& interaction2.message.id===mes.id){
                             i=i-1;
                             interaction2.message.edit({content:`**COUNT:  [ ${i} ]**`})
                         }
