@@ -20,10 +20,10 @@ module.exports = {
                     if (interaction2.isButton()){
                         if (interaction2.customId==="countplus"){
                             i=i+1;
-                            mes.edit({content:`**COUNT   [ ${i} ]**`})
+                            interaction2.message.edit({content:`**COUNT   [ ${i} ]**`})
                         } else if (interaction2.customId==='countminus'){
                             i=i-1;
-                            mes.edit({content:`**COUNT:  [ ${i} ]**`})
+                            interaction2.message.edit({content:`**COUNT:  [ ${i} ]**`})
                         }
                     }
                 })
