@@ -14,7 +14,8 @@ module.exports = {
                     .setLabel("+1")
                     .setStyle("SUCCESS")
             )
-            interaction.reply('testing the counting methode:')
+            interaction.reply('Testing the Counting methode')
+            interaction.deleteReply()
             interaction.channel.send({content:`**COUNT:    [ ${i} ]**`,components: [row]}).then(mes=>{
                 mes.client.on("interactionCreate", interaction2=>{
                     if (interaction2.isButton()){
