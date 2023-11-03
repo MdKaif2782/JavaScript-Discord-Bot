@@ -18,10 +18,10 @@ const prefix = '!'
 
 const path = require('path')
 client.commands= new discord.Collection();
-const folderPath = fs.readdirSync('src/commands')
+const folderPath = fs.readdirSync('./commands')
 
 for (const folder of folderPath){
-	const commands = fs.readdirSync(path.resolve(`src/commands/${folder}`)).filter(file=>file.endsWith('.js'))
+	const commands = fs.readdirSync(path.resolve(`./commands/${folder}`)).filter(file=>file.endsWith('.js'))
 	for (const file of commands){
 		const commandName= file.split('.')[0]
 		const command = require(`./commands/${folder}/${commandName}`);
@@ -32,9 +32,9 @@ for (const folder of folderPath){
 
 
 //reading events
-const eventFolders = fs.readdirSync('src/events')
+const eventFolders = fs.readdirSync('./events')
 for (const folder of eventFolders){
-	const eventFiles = fs.readdirSync(`src/events/${folder}`).filter(file => file.endsWith('.js'));
+	const eventFiles = fs.readdirSync(`./events/${folder}`).filter(file => file.endsWith('.js'));
 
 	for (const file of eventFiles) {
 		const event = require(`./events/${folder}/${file}`);

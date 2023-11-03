@@ -1,6 +1,5 @@
-const nhentai = require('nhentai')
 const {MessageActionRow, MessageButton} = require("discord.js");
-const api = new nhentai.API();
+const getDoujin = require("../../helper/nhentai");
 module.exports = {
     name: 'interactionCreate',
     execute(client) {
@@ -25,9 +24,9 @@ module.exports = {
             (async ()=>{
                 await interaction.reply({content: 'Fetching doujin from API....'})
                 const code = await interaction.options.getInteger('code')
-                const doujin = await api.fetchDoujin(`${code}`)
+                const doujin = await getDoujin(`${code}`);
                 await interaction.deleteReply()
-                await interaction.channel.send({content: (await doujin).pages[i].url,components: [row]}).then(mes=>{
+                await interaction.channel.send({content: (await doujin).pages[i],components: [row]}).then(mes=>{
                     mes.client.on("interactionCreate", interaction2=>{
                         if (interaction2.isButton()){
                             if (interaction2.customId==="countplus" && interaction2.message.id===mes.id){
@@ -46,7 +45,7 @@ module.exports = {
                                 )
 
 
-                                interaction2.message.edit({content: doujin.pages[i].url,components:[row]})
+                                interaction2.message.edit({content: doujin.pages[i],components:[row]})
                             } else if (interaction2.customId==='countminus'&& interaction2.message.id===mes.id){
                                 i=i-1;
 
@@ -64,7 +63,7 @@ module.exports = {
                                 )
 
 
-                                interaction2.message.edit({content: doujin.pages[i].url,components:[row]})
+                                interaction2.message.edit({content: doujin.pages[i],components:[row]})
 
 
 
