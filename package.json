@@ -1,15 +1,12 @@
 {
-  "name": "bot test",
+  "name": "bot-test",
   "version": "1.0.0",
   "description": "just testing lol",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd src && node index.js"
   },
-  "keywords": [
-    "example",
-    "heroku"
-  ],
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",
@@ -23,8 +20,5 @@
   },
   "devDependencies": {
     "eslint": "^8.14.0"
-  },
-  "engines": {
-    "node": "16.14.2"
   }
 }
