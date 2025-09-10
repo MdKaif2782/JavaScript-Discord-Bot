@@ -1,6 +1,7 @@
 const discord = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const http = require('http'); // <-- built-in HTTP module
 
 const client = new discord.Client({
     intents: [
@@ -68,6 +69,17 @@ client.on("messageCreate", message => {
 // ---------- Interaction Handler ----------
 client.on("interactionCreate", interaction => {
     // handle interactions here if needed
+});
+
+// ---------- Basic HTTP Server ----------
+const server = http.createServer((req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Bot is alive!\n');
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`HTTP server running on port ${PORT}`);
 });
 
 // ---------- Login ----------
