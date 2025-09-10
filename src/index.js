@@ -1,76 +1,79 @@
 const discord = require('discord.js');
-const fs = require('fs')
+const fs = require('fs');
+const path = require('path');
 
- const client = new discord.Client({
+const client = new discord.Client({
     intents: [
         "GUILDS",
         "GUILD_MESSAGES",
         "GUILD_MEMBERS",
-		"DIRECT_MESSAGE_REACTIONS",
-		"GUILD_MESSAGE_REACTIONS"
+        "DIRECT_MESSAGE_REACTIONS",
+        "GUILD_MESSAGE_REACTIONS"
     ]
-})
+});
 
+const prefix = '!';
+client.commands = new discord.Collection();
 
+// ---------- Load Commands ----------
+const commandsPath = path.join(__dirname, 'commands');
 
-
-const prefix = '!'
-
-const path = require('path')
-client.commands= new discord.Collection();
-const folderPath = fs.readdirSync('./commands')
-
-for (const folder of folderPath){
-	const commands = fs.readdirSync(path.resolve(`./commands/${folder}`)).filter(file=>file.endsWith('.js'))
-	for (const file of commands){
-		const commandName= file.split('.')[0]
-		const command = require(`./commands/${folder}/${commandName}`);
-		client.commands.set(commandName,command)
-	}
-}
-
-
-
-//reading events
-const eventFolders = fs.readdirSync('./events')
-for (const folder of eventFolders){
-	const eventFiles = fs.readdirSync(`./events/${folder}`).filter(file => file.endsWith('.js'));
-
-	for (const file of eventFiles) {
-		const event = require(`./events/${folder}/${file}`);
-		if (event.once) {
-			client.once(event.name, (...args) => event.execute(...args));
-		} else {
-			client.on(event.name, (...args) => event.execute(...args));
-		}
-	}
-}
-
-
-//messageCreateCommands
-client.on("messageCreate", (message)=>{
-    if (message.content.startsWith(prefix)){
-        const args = message.content.slice(prefix.length).trim().split(/ +/g)
-        const commandName = args.shift()
-        const command = client.commands.get(commandName)
-        if (!command) return message.reply("This command doesn't exist")
-        command.run(client,message)
+function loadCommands(dir) {
+    const folders = fs.readdirSync(dir);
+    for (const folder of folders) {
+        const fullFolderPath = path.join(dir, folder);
+        if (fs.statSync(fullFolderPath).isDirectory()) {
+            const commandFiles = fs.readdirSync(fullFolderPath).filter(f => f.endsWith('.js'));
+            for (const file of commandFiles) {
+                const command = require(path.join(fullFolderPath, file));
+                client.commands.set(file.split('.')[0], command);
+            }
+        }
     }
-})
+}
 
-client.on("interactionCreate", (interaction)=>{
-})
+loadCommands(commandsPath);
 
-const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA"
-const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW"
-client.login(token1 + token2 + "8").then( r => {
-	console.log(r);
-})
+// ---------- Load Events ----------
+const eventsPath = path.join(__dirname, 'events');
 
+function loadEvents(dir) {
+    const folders = fs.readdirSync(dir);
+    for (const folder of folders) {
+        const fullFolderPath = path.join(dir, folder);
+        const eventFiles = fs.readdirSync(fullFolderPath).filter(f => f.endsWith('.js'));
+        for (const file of eventFiles) {
+            const event = require(path.join(fullFolderPath, file));
+            if (event.once) {
+                client.once(event.name, (...args) => event.execute(...args));
+            } else {
+                client.on(event.name, (...args) => event.execute(...args));
+            }
+        }
+    }
+}
 
+loadEvents(eventsPath);
 
+// ---------- Message Command Handler ----------
+client.on("messageCreate", message => {
+    if (!message.content.startsWith(prefix)) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const commandName = args.shift();
+    const command = client.commands.get(commandName);
+    if (!command) return message.reply("This command doesn't exist");
+    command.run(client, message, args);
+});
 
+// ---------- Interaction Handler ----------
+client.on("interactionCreate", interaction => {
+    // handle interactions here if needed
+});
 
-
-
-
+// ---------- Login ----------
+const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA";
+const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW";
+const token3 = "8";
+client.login(token1 + token2 + token3).then(() => {
+    console.log(`Ready! Logged in as ${client.user.tag}`);
+});
