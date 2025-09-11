@@ -1,3 +1,4 @@
+require('dotenv').config();
 const discord = require('discord.js');
 const fs = require('fs');
 const path = require('path');
@@ -82,10 +83,15 @@ server.listen(PORT, () => {
     console.log(`HTTP server running on port ${PORT}`);
 });
 
-// ---------- Login ----------
-const token1 = "OTI0NTc4NzcwNzg1MDEzODAw.YcgnFA";
-const token2 = ".d_wjS3yKKbHvSpWeJSRWAnj8cW";
-const token3 = "8";
-client.login(token1 + token2 + token3).then(() => {
+const token = process.env.DISCORD_TOKEN;
+console.log(token);
+client.login(token).then(() => {
     console.log(`Ready! Logged in as ${client.user.tag}`);
 });
+
+setInterval(() => {
+    fetch(`https://javascript-discord-bot.onrender.com`)
+        .then(res => res.text())
+        .then(txt => console.log(`[KEEP-ALIVE] Pinged self: ${txt.trim()}`))
+        .catch(err => console.error("[KEEP-ALIVE] Failed to ping self:", err.message));
+}, 3 * 60 * 1000); // every 3 minutes
